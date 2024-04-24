@@ -6938,6 +6938,11 @@ MonoBehaviour:
   _fireRate: 120
   _fireDelaySeconds: 0
   _pellets: 1
+  _magazine:
+    _magazineSize: 30
+    _remainingBullets: 30
+    _reloadTime: 1
+    _loadSingleBullet: 0
   _horizontalRecoil: {x: 0, y: 1}
   _verticalRecoil: {x: 0, y: 1}
   _spread: {fileID: 0}

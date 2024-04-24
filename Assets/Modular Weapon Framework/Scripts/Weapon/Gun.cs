@@ -22,12 +22,15 @@ namespace ModularWeapons.Weapon
         [Tooltip("Number of pellets per shot fired")]
         [SerializeField] private float _pellets = 1;
 
+        [Header("Magazine")]
+        [SerializeField] private Magazine _magazine = new();
+
         [Header("Recoil & Spread")]
 
         [Tooltip("Minimum and Maximum horizontal recoil")]
-        [SerializeField] private Vector2 _horizontalRecoil = new(0,1);
+        [SerializeField] private Vector2 _horizontalRecoil = new(0, 1);
         [Tooltip("Minimum and Maximum vertical recoil")]
-        [SerializeField] private Vector2 _verticalRecoil = new(0,1);
+        [SerializeField] private Vector2 _verticalRecoil = new(0, 1);
 
         [Tooltip("The spread pattern for the bullets")]
         [SerializeField] private Component _spread;
@@ -46,10 +49,11 @@ namespace ModularWeapons.Weapon
 
         #endregion
         #region Fields
-        
-        private readonly CancellationTokenSource _tokenSource = new();
+
+        private readonly CancellationTokenSource _cancellationTokenSource = new();
         private bool _canFire = true;
         private InputAction _fireAction;
+        private InputAction _reloadAction;
 
         #endregion
 
@@ -64,17 +68,24 @@ namespace ModularWeapons.Weapon
         private void Start()
         {
             _fireAction = _playerInput.actions.FindAction("Fire");
-            if(_fireAction == null) throw new ArgumentNullException(nameof(_fireAction));
+            if (_fireAction == null) throw new ArgumentNullException(nameof(_fireAction));
+
+            _reloadAction = _playerInput.actions.FindAction("Reload");
+            if (_reloadAction == null) throw new ArgumentNullException(nameof(_reloadAction));
 
             _fireAction.performed += HandleFirePress;
+            _reloadAction.performed += HandleReloadPress;
+
+            _magazine.ForceReload();
         }
 
         private void OnDestroy()
         {
             _fireAction.performed -= HandleFirePress;
+            _reloadAction.performed -= HandleReloadPress;
 
-            _tokenSource.Cancel();
-            _tokenSource.Dispose();
+            _cancellationTokenSource.Cancel();
+            _cancellationTokenSource.Dispose();
         }
 
         #endregion
@@ -83,11 +94,13 @@ namespace ModularWeapons.Weapon
 
         public async void Fire(CancellationToken token)
         {
-            while(_fireAction.IsPressed() && _canFire)
+            while (_fireAction.IsPressed() && _canFire)
             {
+                if (!_magazine.Fire()) return;
+
                 _canFire = false;
 
-                if(_muzzleFlash != null)
+                if (_muzzleFlash != null)
                 {
                     _muzzleFlash.Play();
                 }
@@ -100,9 +113,9 @@ namespace ModularWeapons.Weapon
             }
         }
 
-        public void Reload()
+        public void Reload(CancellationToken token)
         {
-            throw new NotImplementedException();
+            _magazine.Reload(token);
         }
 
         #endregion
@@ -111,7 +124,26 @@ namespace ModularWeapons.Weapon
 
         private void HandleFirePress(InputAction.CallbackContext _)
         {
-            Fire(_tokenSource.Token);
+            try
+            {
+                Fire(_cancellationTokenSource.Token);
+            }
+            catch (OperationCanceledException)
+            {
+                throw new OperationCanceledException("Fire was cancelled because the operation was cancelled!");
+            }
+        }
+
+        private void HandleReloadPress(InputAction.CallbackContext context)
+        {
+            try
+            {
+                Reload(_cancellationTokenSource.Token);
+            }
+            catch (OperationCanceledException)
+            {
+                throw new OperationCanceledException("Fire was cancelled because the operation was cancelled!");
+            }
         }
 
         #endregion
