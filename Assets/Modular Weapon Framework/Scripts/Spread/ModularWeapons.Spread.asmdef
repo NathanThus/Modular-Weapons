@@ -1,10 +1,9 @@
 {
-    "name": "ModularWeapons.Weapon",
-    "rootNamespace": "ModularWeapons.Weapon",
+    "name": "ModularWeapons.Spread",
+    "rootNamespace": "ModularWeapons.Spread",
     "references": [
         "GUID:f51ebe6a0ceec4240a699833d6309b23",
-        "GUID:75469ad4d38634e559750d17036d5f7c",
-        "GUID:da705bb217ddd414ab25ef31f87c94b2"
+        "GUID:75469ad4d38634e559750d17036d5f7c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
