@@ -6826,6 +6826,7 @@ GameObject:
   - component: {fileID: 1663630474}
   - component: {fileID: 1663630473}
   - component: {fileID: 1663630476}
+  - component: {fileID: 1663630477}
   m_Layer: 0
   m_Name: Proto-Gun
   m_TagString: Untagged
@@ -6945,13 +6946,26 @@ MonoBehaviour:
     _loadSingleBullet: 0
   _horizontalRecoil: {x: 0, y: 1}
   _verticalRecoil: {x: 0, y: 1}
-  _spread: {fileID: 0}
+  _spread: {fileID: 1663630477}
   _muzzleFlash: {fileID: 1060859192}
   _firingAudio: {fileID: 0}
   _reloadAudio: {fileID: 0}
   _muzzleTransform: {fileID: 1249175765}
   _bullet: {fileID: 0}
   _playerInput: {fileID: 946345370}
+--- !u!114 &1663630477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1663630471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 440e1a94ccf842140a351a0d2680cedc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _radius: 1
 --- !u!1 &1683881271
 GameObject:
   m_ObjectHideFlags: 0
