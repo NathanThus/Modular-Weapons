@@ -112,10 +112,7 @@ namespace ModularWeapons.Weapon
                     _muzzleFlash.Play();
                 }
 
-                if(_firingAudio != null) 
-                {
-                    _firingAudio.PlayRandom();
-                }
+                _firingAudio?.PlayRandom();
 
                 Vector2 spread = _spread.GetSpread();
                 
@@ -129,10 +126,7 @@ namespace ModularWeapons.Weapon
 
         public void Reload(CancellationToken token)
         {
-            if(_reloadAudio != null)
-            {
-                _reloadAudio.PlayRandom();
-            }
+            _reloadAudio?.PlayRandom();
             _magazine.Reload(token);
         }
 
