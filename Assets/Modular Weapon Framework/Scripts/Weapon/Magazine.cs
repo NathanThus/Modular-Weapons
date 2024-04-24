@@ -6,7 +6,7 @@ using UnityEngine;
 namespace ModularWeapons.Weapon
 {
     [Serializable]
-    public struct Magazine
+    public class Magazine
     {
         [SerializeField] private int _magazineSize;
         [SerializeField] private int _remainingBullets;
@@ -17,12 +17,11 @@ namespace ModularWeapons.Weapon
 
         private bool _isReloading;
 
-        public readonly int MagazineSize => _magazineSize;
-        public readonly int RemainingBullets => _remainingBullets;
-
         public async void Reload(CancellationToken token)
         {
+            if(_magazineSize == _remainingBullets) return;
             if(_isReloading) return;
+
             _isReloading = true;
 
             await UniTask.WaitForSeconds(_reloadTime, cancellationToken: token);
