@@ -124,12 +124,26 @@ namespace ModularWeapons.Weapon
 
         private void HandleFirePress(InputAction.CallbackContext _)
         {
-            Fire(_cancellationTokenSource.Token);
+            try
+            {
+                Fire(_cancellationTokenSource.Token);
+            }
+            catch (OperationCanceledException)
+            {
+                throw new OperationCanceledException("Fire was cancelled because the operation was cancelled!");
+            }
         }
 
         private void HandleReloadPress(InputAction.CallbackContext context)
         {
-            Reload(_cancellationTokenSource.Token);
+            try
+            {
+                Reload(_cancellationTokenSource.Token);
+            }
+            catch (OperationCanceledException)
+            {
+                throw new OperationCanceledException("Fire was cancelled because the operation was cancelled!");
+            }
         }
 
         #endregion
