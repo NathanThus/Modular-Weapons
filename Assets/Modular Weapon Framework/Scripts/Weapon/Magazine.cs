@@ -31,6 +31,11 @@ namespace ModularWeapons.Weapon
             _isReloading = false;
         }
 
+        public void ForceReload()
+        {
+            _remainingBullets = _magazineSize;
+        }
+
         public bool Fire()
         {
             if(_magazineSize <= 0) return false;
