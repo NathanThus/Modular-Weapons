@@ -11,7 +11,8 @@ namespace ModularWeapons.Spread
         
         public override Vector2 GetSpread()
         {
-            return new Vector2(Random.Range(0,_horizontalSpread),Random.Range(0,_verticalSpread));
+            return new Vector2(Random.Range(-_horizontalSpread, _horizontalSpread),
+                               Random.Range(-_verticalSpread, _verticalSpread));
         }
     }
 }
