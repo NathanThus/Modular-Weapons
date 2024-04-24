@@ -1,12 +1,9 @@
 {
-    "name": "ModularWeapons.Weapon",
-    "rootNamespace": "ModularWeapons.Weapon",
+    "name": "ModularWeapons.Audio",
+    "rootNamespace": "ModularWeapons.Audio",
     "references": [
         "GUID:f51ebe6a0ceec4240a699833d6309b23",
-        "GUID:75469ad4d38634e559750d17036d5f7c",
-        "GUID:da705bb217ddd414ab25ef31f87c94b2",
-        "GUID:9e286601d9784e3439b3ff15d6886b81",
-        "GUID:ee79bbaacb56d7e46a7fb0fe22b45c22"
+        "GUID:75469ad4d38634e559750d17036d5f7c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
