@@ -19,6 +19,6 @@ namespace ModularWeapons.Bullet
             OnHit?.Invoke(health);
         }
 
-        public virtual void Fire(Vector3 origin, Vector3 forward, Vector2 spread) {}
+        public abstract void Fire(Vector3 origin, Vector3 forward, Vector2 spread);
     }
 }
