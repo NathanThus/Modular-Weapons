@@ -1,6 +1,8 @@
 using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks.Triggers;
+using ModularWeapons.Spread;
 using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -33,7 +35,7 @@ namespace ModularWeapons.Weapon
         [SerializeField] private Vector2 _verticalRecoil = new(0, 1);
 
         [Tooltip("The spread pattern for the bullets")]
-        [SerializeField] private Component _spread;
+        [SerializeField] private BulletSpread _spread;
 
         [Header("Visuals")]
         [SerializeField] private ParticleSystem _muzzleFlash;
@@ -104,6 +106,9 @@ namespace ModularWeapons.Weapon
                 {
                     _muzzleFlash.Play();
                 }
+
+                Vector2 spread = _spread.GetSpread();
+                spread *= Vector2.zero;
 
                 Debug.Log("PEW");
 
