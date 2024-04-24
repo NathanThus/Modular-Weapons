@@ -6948,8 +6948,14 @@ MonoBehaviour:
   _verticalRecoil: {x: 0, y: 1}
   _spread: {fileID: 1663630477}
   _muzzleFlash: {fileID: 1060859192}
-  _firingAudio: {fileID: 0}
-  _reloadAudio: {fileID: 0}
+  _firingAudio:
+    _source: {fileID: 0}
+    _upperPitchLimit: 0
+    _lowerPitchLimit: 0
+  _reloadAudio:
+    _source: {fileID: 0}
+    _upperPitchLimit: 0
+    _lowerPitchLimit: 0
   _muzzleTransform: {fileID: 1249175765}
   _bullet: {fileID: 0}
   _playerInput: {fileID: 946345370}
@@ -6962,10 +6968,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1663630471}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 440e1a94ccf842140a351a0d2680cedc, type: 3}
+  m_Script: {fileID: 11500000, guid: 5c91c454414f0a642b235ddc4b164ceb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _radius: 1
+  _verticalSpread: 1
+  _horizontalSpread: 1
 --- !u!1 &1683881271
 GameObject:
   m_ObjectHideFlags: 0

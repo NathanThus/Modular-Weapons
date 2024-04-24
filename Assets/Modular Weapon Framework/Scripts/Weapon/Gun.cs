@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Triggers;
+using ModularWeapons.Audio;
 using ModularWeapons.Spread;
 using UnityEditor.EditorTools;
 using UnityEngine;
@@ -41,8 +42,8 @@ namespace ModularWeapons.Weapon
         [SerializeField] private ParticleSystem _muzzleFlash;
 
         [Header("Sound")]
-        [SerializeField] private AudioClip _firingAudio;
-        [SerializeField] private AudioClip _reloadAudio;
+        [SerializeField] private GunAudio _firingAudio;
+        [SerializeField] private GunAudio _reloadAudio;
 
         [Header("Script Dependencies")]
         [SerializeField] private Transform _muzzleTransform;
@@ -74,6 +75,9 @@ namespace ModularWeapons.Weapon
 
             _reloadAction = _playerInput.actions.FindAction("Reload");
             if (_reloadAction == null) throw new ArgumentNullException(nameof(_reloadAction));
+
+            if(_spread == null) throw new ArgumentNullException(nameof(_spread),
+                                                                "Did you forget to assign bullet spread?");
 
             _fireAction.performed += HandleFirePress;
             _reloadAction.performed += HandleReloadPress;
@@ -107,6 +111,8 @@ namespace ModularWeapons.Weapon
                     _muzzleFlash.Play();
                 }
 
+                _firingAudio.PlayRandom();
+
                 Vector2 spread = _spread.GetSpread();
                 spread *= Vector2.zero;
 
@@ -120,6 +126,7 @@ namespace ModularWeapons.Weapon
 
         public void Reload(CancellationToken token)
         {
+            _reloadAudio.PlayRandom();
             _magazine.Reload(token);
         }
 
