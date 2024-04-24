@@ -13,11 +13,14 @@ namespace ModularWeapons.Audio
 
         public void Play()
         {
+            if(_source == null) return;
+
             _source.Play();
         }
 
         public void PlayRandom()
         {
+            if(_source == null) return;
             _source.pitch = UnityEngine.Random.Range(_lowerPitchLimit, _upperPitchLimit);
             _source.Play();
             _source.pitch = 1;
