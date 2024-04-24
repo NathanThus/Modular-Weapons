@@ -38,17 +38,17 @@ namespace ModularWeapons.Weapon
 
         public bool Fire()
         {
-            if(_magazineSize <= 0) return false;
+            if(_remainingBullets <= 0) return false;
             
-            _magazineSize--;
+            _remainingBullets--;
             return true;
         }
 
         public bool Fire(int bullets)
         {
-            if(_magazineSize <= 0 || bullets > _magazineSize) return false;
+            if(_remainingBullets <= 0 || bullets > _remainingBullets) return false;
 
-            _magazineSize -= bullets;
+            _remainingBullets -= bullets;
             return true;
         }
     }
