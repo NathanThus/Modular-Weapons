@@ -3,6 +3,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Triggers;
 using ModularWeapons.Audio;
+using ModularWeapons.Bullet;
 using ModularWeapons.Spread;
 using UnityEditor.EditorTools;
 using UnityEngine;
@@ -47,7 +48,7 @@ namespace ModularWeapons.Weapon
 
         [Header("Script Dependencies")]
         [SerializeField] private Transform _muzzleTransform;
-        [SerializeField] private GameObject _bullet;
+        [SerializeField] private BulletTemplate _bullet;
         [SerializeField] private PlayerInput _playerInput;
 
         #endregion
@@ -111,12 +112,14 @@ namespace ModularWeapons.Weapon
                     _muzzleFlash.Play();
                 }
 
-                _firingAudio.PlayRandom();
+                if(_firingAudio != null) 
+                {
+                    _firingAudio.PlayRandom();
+                }
 
                 Vector2 spread = _spread.GetSpread();
-                spread *= Vector2.zero;
-
-                Debug.Log("PEW");
+                
+                _bullet.Fire(_muzzleTransform.position, _muzzleTransform.forward, spread);
 
                 await UniTask.WaitForSeconds(DelayBetweenShotsSeconds, cancellationToken: token);
 
@@ -126,7 +129,10 @@ namespace ModularWeapons.Weapon
 
         public void Reload(CancellationToken token)
         {
-            _reloadAudio.PlayRandom();
+            if(_reloadAudio != null)
+            {
+                _reloadAudio.PlayRandom();
+            }
             _magazine.Reload(token);
         }
 

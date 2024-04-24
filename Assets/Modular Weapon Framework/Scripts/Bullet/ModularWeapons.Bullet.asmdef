@@ -1,0 +1,16 @@
+{
+    "name": "ModularWeapons.Bullet",
+    "rootNamespace": "ModularWeapons.Bullet",
+    "references": [
+        "GUID:9e286601d9784e3439b3ff15d6886b81"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace ModularWeapons.Health
+namespace ModularWeapons.HealthSystem
 {
     [RequireComponent(typeof(Collider), typeof(Rigidbody))]
     public class Health : MonoBehaviour
