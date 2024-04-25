@@ -6275,7 +6275,7 @@ MonoBehaviour:
   _muzzleTransform: {fileID: 1249175765}
   _bullet: {fileID: 1028318472}
   _playerInput: {fileID: 946345370}
-  _camera: {fileID: 0}
+  _camera: {fileID: 1206737344}
 --- !u!65 &1028318475
 BoxCollider:
   m_ObjectHideFlags: 0
