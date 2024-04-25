@@ -118,6 +118,13 @@ namespace ModularWeapons.Weapon
 
         public async void Fire(CancellationToken token)
         {
+            if(!_canFire) return;
+
+            if(_fireDelaySeconds > 0f)
+            {
+                await UniTask.WaitForSeconds(_fireDelaySeconds);
+            }
+
             while (_fireAction.IsPressed() && _canFire)
             {
                 if (!_magazine.Fire()) return;
