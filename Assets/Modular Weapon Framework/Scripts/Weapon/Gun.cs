@@ -6,6 +6,7 @@ using ModularWeapons.Bullet;
 using ModularWeapons.Spread;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 namespace ModularWeapons.Weapon
 {
@@ -20,6 +21,9 @@ namespace ModularWeapons.Weapon
             [SerializeField] private Vector2 _horizontalRecoil;
             [Tooltip("Minimum and Maximum vertical recoil")]
             [SerializeField] private Vector2 _verticalRecoil;
+
+            public Vector2 HorizontalRecoil => _horizontalRecoil;
+            public Vector2 VerticalRecoil => _verticalRecoil;
         }
 
         #endregion
@@ -59,6 +63,7 @@ namespace ModularWeapons.Weapon
         [SerializeField] private Transform _muzzleTransform;
         [SerializeField] private BulletTemplate _bullet;
         [SerializeField] private PlayerInput _playerInput;
+        [SerializeField] private Transform _camera;
 
         #endregion
         #region Fields
@@ -89,6 +94,9 @@ namespace ModularWeapons.Weapon
             if (_spread == null) throw new ArgumentNullException(nameof(_spread),
                                                                 "Did you forget to assign bullet spread?");
 
+            if(_camera == null) throw new ArgumentNullException(nameof(_camera));
+
+            
             _fireAction.performed += HandleFirePress;
             _reloadAction.performed += HandleReloadPress;
 
@@ -126,7 +134,7 @@ namespace ModularWeapons.Weapon
                 Vector2 spread = _spread.GetSpread();
 
                 _bullet.Fire(_muzzleTransform.position, _muzzleTransform.forward, spread);
-
+                ApplyRecoil();
                 await UniTask.WaitForSeconds(DelayBetweenShotsSeconds, cancellationToken: token);
 
                 _canFire = true;
@@ -142,6 +150,14 @@ namespace ModularWeapons.Weapon
         #endregion
 
         #region Private
+
+        private void ApplyRecoil()
+        {
+            Vector3 recoil = new(Random.Range(_recoil.HorizontalRecoil.x, _recoil.HorizontalRecoil.y),
+                                 Random.Range(_recoil.VerticalRecoil.x, _recoil.VerticalRecoil.y),
+                                 0);
+            _camera.rotation.SetLookRotation(recoil);
+        }
 
         private void HandleFirePress(InputAction.CallbackContext _)
         {

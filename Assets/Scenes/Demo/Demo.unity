@@ -284,8 +284,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c91c454414f0a642b235ddc4b164ceb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _verticalSpread: 0.1
-  _horizontalSpread: 0.1
+  _verticalSpread: 0.01
+  _horizontalSpread: 0.01
 --- !u!114 &261255718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,8 +310,8 @@ MonoBehaviour:
     _loadSingleBullet: 0
   _spread: {fileID: 261255717}
   _recoil:
-    _horizontalRecoil: {x: 0, y: 0}
-    _verticalRecoil: {x: 0, y: 0}
+    _horizontalRecoil: {x: -1, y: 1}
+    _verticalRecoil: {x: -1, y: 1}
   _muzzleFlash: {fileID: 737017128}
   _firingAudio:
     _source: {fileID: 0}
@@ -324,6 +324,7 @@ MonoBehaviour:
   _muzzleTransform: {fileID: 1981383436}
   _bullet: {fileID: 1055551602}
   _playerInput: {fileID: 946345370}
+  _camera: {fileID: 1206737344}
 --- !u!65 &261255719
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6274,6 +6275,7 @@ MonoBehaviour:
   _muzzleTransform: {fileID: 1249175765}
   _bullet: {fileID: 1028318472}
   _playerInput: {fileID: 946345370}
+  _camera: {fileID: 0}
 --- !u!65 &1028318475
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11589,6 +11591,10 @@ PrefabInstance:
     - target: {fileID: 9005220659476430823, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
       propertyPath: m_Name
       value: MainCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018249871969862650, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
