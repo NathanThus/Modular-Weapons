@@ -305,16 +305,18 @@ MonoBehaviour:
   _magazine:
     _magazineSize: 100
     _remainingBullets: 100
+    _reserveAmmo: 500
     _reloadTime: 1
     _loadSingleBullet: 0
-  _horizontalRecoil: {x: 0, y: 1}
-  _verticalRecoil: {x: 0, y: 1}
   _spread: {fileID: 261255717}
+  _recoil:
+    _horizontalRecoil: {x: 0, y: 0}
+    _verticalRecoil: {x: 0, y: 0}
   _muzzleFlash: {fileID: 737017128}
   _firingAudio:
     _source: {fileID: 0}
-    _upperPitchLimit: 0
-    _lowerPitchLimit: 0
+    _upperPitchLimit: 1
+    _lowerPitchLimit: 1
   _reloadAudio:
     _source: {fileID: 0}
     _upperPitchLimit: 0
@@ -6253,11 +6255,13 @@ MonoBehaviour:
   _magazine:
     _magazineSize: 100
     _remainingBullets: 100
+    _reserveAmmo: 0
     _reloadTime: 1
     _loadSingleBullet: 0
-  _horizontalRecoil: {x: 0, y: 1}
-  _verticalRecoil: {x: 0, y: 1}
   _spread: {fileID: 1028318473}
+  _recoil:
+    _horizontalRecoil: {x: 0, y: 0}
+    _verticalRecoil: {x: 0, y: 0}
   _muzzleFlash: {fileID: 1060859192}
   _firingAudio:
     _source: {fileID: 0}

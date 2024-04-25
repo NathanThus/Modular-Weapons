@@ -1,11 +1,9 @@
 using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Cysharp.Threading.Tasks.Triggers;
 using ModularWeapons.Audio;
 using ModularWeapons.Bullet;
 using ModularWeapons.Spread;
-using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,6 +11,19 @@ namespace ModularWeapons.Weapon
 {
     public class Gun : MonoBehaviour
     {
+        #region Nested Entities
+
+        [Serializable]
+        private struct RecoilConfiguration
+        {
+            [Tooltip("Minimum and Maximum horizontal recoil")]
+            [SerializeField] private Vector2 _horizontalRecoil;
+            [Tooltip("Minimum and Maximum vertical recoil")]
+            [SerializeField] private Vector2 _verticalRecoil;
+        }
+
+        #endregion
+
         #region Serialized Fields
         [Header("Gun Stats")]
         [SerializeField] private float _damage = 25;
@@ -29,15 +40,13 @@ namespace ModularWeapons.Weapon
         [Header("Magazine")]
         [SerializeField] private Magazine _magazine = new();
 
-        [Header("Recoil & Spread")]
-
-        [Tooltip("Minimum and Maximum horizontal recoil")]
-        [SerializeField] private Vector2 _horizontalRecoil = new(0, 1);
-        [Tooltip("Minimum and Maximum vertical recoil")]
-        [SerializeField] private Vector2 _verticalRecoil = new(0, 1);
+        [Header("Spread")]
 
         [Tooltip("The spread pattern for the bullets")]
         [SerializeField] private BulletSpread _spread;
+
+        [Header("Recoil")]
+        [SerializeField] private RecoilConfiguration _recoil;
 
         [Header("Visuals")]
         [SerializeField] private ParticleSystem _muzzleFlash;
@@ -77,7 +86,7 @@ namespace ModularWeapons.Weapon
             _reloadAction = _playerInput.actions.FindAction("Reload");
             if (_reloadAction == null) throw new ArgumentNullException(nameof(_reloadAction));
 
-            if(_spread == null) throw new ArgumentNullException(nameof(_spread),
+            if (_spread == null) throw new ArgumentNullException(nameof(_spread),
                                                                 "Did you forget to assign bullet spread?");
 
             _fireAction.performed += HandleFirePress;
@@ -115,7 +124,7 @@ namespace ModularWeapons.Weapon
                 _firingAudio?.PlayRandom();
 
                 Vector2 spread = _spread.GetSpread();
-                
+
                 _bullet.Fire(_muzzleTransform.position, _muzzleTransform.forward, spread);
 
                 await UniTask.WaitForSeconds(DelayBetweenShotsSeconds, cancellationToken: token);
@@ -124,10 +133,10 @@ namespace ModularWeapons.Weapon
             }
         }
 
-        public void Reload(CancellationToken token)
+        public async void Reload(CancellationToken token)
         {
             _reloadAudio?.PlayRandom();
-            _magazine.Reload(token);
+            await _magazine.Reload(token);
         }
 
         #endregion
