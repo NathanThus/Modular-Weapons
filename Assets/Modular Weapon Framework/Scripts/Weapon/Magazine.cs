@@ -39,18 +39,18 @@ namespace ModularWeapons.Weapon
         /// Reloads the magazine with new bullets. Will reload the entire mag, or as much available ammo as possible.
         /// </summary>
         /// <param name="token">The cancellation token.</param>
-        /// <returns></returns>
+        /// <returns>A Task.</returns>
         public async UniTask Reload(CancellationToken token)
         {
-            await Reload(token, _magazineSize);
+            await Reload(token, _magazineSize - _remainingBullets);
         }
 
         /// <summary>
         /// Reloads the magazine with new bullets. Will reload the designated amount of bullets, or as much available ammo as possible.
         /// </summary>
-        /// <param name="token"></param>
-        /// <param name="bullets"></param>
-        /// <returns></returns>
+        /// <param name="token">The cancellation token.</param>
+        /// <param name="bullets">The number of bullets to reload</param>
+        /// <returns>A Task.</returns>
         public async UniTask Reload(CancellationToken token, int bullets)
         {
             if (_magazineSize == _remainingBullets) return;
@@ -68,7 +68,7 @@ namespace ModularWeapons.Weapon
             }
             else
             {
-                _remainingBullets = bullets;
+                _remainingBullets = _magazineSize;
                 _reserveAmmo -= bullets;
             }
 
