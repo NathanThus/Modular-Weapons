@@ -26,6 +26,13 @@ namespace ModularWeapons.Weapon
 
         #endregion
 
+        #region Properties
+
+        public int RemainingBullets => _remainingBullets;
+        public int ReserveAmmo => _reserveAmmo;
+
+        #endregion
+
         #region Public
 
         /// <summary>
