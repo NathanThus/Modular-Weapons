@@ -106,7 +106,7 @@ namespace ModularWeapons.Weapon
             _bullet.AssignDamage(_damage);
 
             SubscribeToPlayerActions();
-            _magazine.ForceReload();
+            ForceReload();
         }
 
         private void OnDestroy()
@@ -222,6 +222,12 @@ namespace ModularWeapons.Weapon
             if (_fireAction == null || _reloadAction == null) return;
             _fireAction.performed += HandleFirePress;
             _reloadAction.performed += HandleReloadPress;
+        }
+
+        private void ForceReload()
+        {
+            _magazine.ForceReload();
+            OnReload.Invoke(_magazine.RemainingBullets,_magazine.ReserveAmmo);
         }
 
         #endregion

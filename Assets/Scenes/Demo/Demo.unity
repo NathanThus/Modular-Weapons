@@ -254,7 +254,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &261255716
 Transform:
   m_ObjectHideFlags: 0
@@ -6356,7 +6356,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1028318471
 Transform:
   m_ObjectHideFlags: 0
@@ -6423,13 +6423,13 @@ MonoBehaviour:
   _magazine:
     _magazineSize: 100
     _remainingBullets: 100
-    _reserveAmmo: 0
+    _reserveAmmo: 400
     _reloadTime: 1
     _loadSingleBullet: 0
   _spread: {fileID: 1028318473}
   _recoil:
-    _horizontalRecoil: {x: 0, y: 0}
-    _verticalRecoil: {x: 0, y: 0}
+    _horizontalRecoil: {x: -1, y: 1}
+    _verticalRecoil: {x: -1, y: 1}
   _muzzleFlash: {fileID: 1060859192}
   _firingAudio:
     _source: {fileID: 0}
