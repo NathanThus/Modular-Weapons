@@ -96,6 +96,8 @@ namespace ModularWeapons.Weapon
 
             if(_camera == null) throw new ArgumentNullException(nameof(_camera));
 
+            _bullet.AssignDamage(_damage);
+
             SubscribeToPlayerActions();
             _magazine.ForceReload();
         }
