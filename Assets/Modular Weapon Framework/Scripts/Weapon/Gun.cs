@@ -28,6 +28,13 @@ namespace ModularWeapons.Weapon
 
         #endregion
 
+        #region Events
+
+        public event Action <int> OnFire;
+        public event Action <int,int> OnReload;
+
+        #endregion
+
         #region Serialized Fields
         [Header("Gun Stats")]
         [SerializeField] private float _damage = 25;
@@ -112,6 +119,7 @@ namespace ModularWeapons.Weapon
 
         private void OnEnable()
         {
+            OnReload?.Invoke(_magazine.RemainingBullets,_magazine.ReserveAmmo);
             SubscribeToPlayerActions();
         }
 
@@ -145,6 +153,7 @@ namespace ModularWeapons.Weapon
                 }
 
                 _firingAudio?.PlayRandom();
+                OnFire?.Invoke(_magazine.RemainingBullets);
 
                 for (var i = 0; i < _pellets; i++)
                 {
@@ -163,6 +172,7 @@ namespace ModularWeapons.Weapon
         {
             _reloadAudio?.PlayRandom();
             await _magazine.Reload(token);
+            OnReload?.Invoke(_magazine.RemainingBullets,_magazine.ReserveAmmo);
         }
 
         #endregion

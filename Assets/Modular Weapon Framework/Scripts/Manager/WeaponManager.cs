@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using ModularWeapons.UI;
 using ModularWeapons.Weapon;
+using UnityEditor.Graphs;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -22,6 +24,7 @@ namespace ModularWeapons.Manager
 
         [SerializeField] private List<Gun> _guns;
         [SerializeField] private PlayerInput _playerInput;
+        [SerializeField] private AmmoUIElement _ammoUI;
 
         #endregion
 
@@ -29,7 +32,6 @@ namespace ModularWeapons.Manager
 
         private WeaponSlot _slot = WeaponSlot.Primary;
         private InputAction _switchAction;
-
 
         #endregion
 
@@ -41,11 +43,19 @@ namespace ModularWeapons.Manager
             if (_switchAction == null) throw new ArgumentNullException(nameof(_switchAction), "The action was not found!");
 
             _switchAction.performed += HandleWeaponSwitch;
+
+            _guns[(int)WeaponSlot.Primary].OnFire += HandleWeaponFire;
+            _guns[(int)WeaponSlot.Primary].OnReload += HandleWeaponReload;
         }
 
         private void OnDestroy()
         {
             _switchAction.performed -= HandleWeaponSwitch;
+
+            var index = (int)_slot;
+
+            _guns[index].OnFire -= HandleWeaponFire;
+            _guns[index].OnReload -= HandleWeaponReload;
         }
 
         #endregion
@@ -54,11 +64,19 @@ namespace ModularWeapons.Manager
 
         private void SwitchWeapon()
         {
-            _guns[(int)_slot].gameObject.SetActive(false);
-            _slot = SwitchSlot(_slot);
-            _guns[(int)_slot].gameObject.SetActive(true);
-        }
+            var index = (int)_slot;
 
+            _guns[index].OnFire -= HandleWeaponFire;
+            _guns[index].OnReload -= HandleWeaponReload;
+            _guns[index].gameObject.SetActive(false);
+
+            _slot = SwitchSlot(_slot);
+            index = (int)_slot;
+
+            _guns[index].OnFire += HandleWeaponFire;
+            _guns[index].OnReload += HandleWeaponReload;
+            _guns[index].gameObject.SetActive(true);
+        }
 
         private WeaponSlot SwitchSlot(WeaponSlot slot) => slot switch
         {
@@ -70,6 +88,16 @@ namespace ModularWeapons.Manager
         private void HandleWeaponSwitch(InputAction.CallbackContext context)
         {
             SwitchWeapon();
+        }
+
+        private void HandleWeaponReload(int magazine, int reserve)
+        {
+            _ammoUI.UpdateUI(magazine, reserve);
+        }
+
+        private void HandleWeaponFire(int magazine)
+        {
+            _ammoUI.UpdateUI(magazine);
         }
 
         #endregion
