@@ -1,0 +1,17 @@
+{
+    "name": "ModularWeapons.Manager",
+    "rootNamespace": "ModularWeapons.Manager",
+    "references": [
+        "GUID:397008e3c8479f24fb5aee81077c01bb",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

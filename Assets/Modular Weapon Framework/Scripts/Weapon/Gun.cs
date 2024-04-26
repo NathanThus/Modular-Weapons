@@ -96,20 +96,26 @@ namespace ModularWeapons.Weapon
 
             if(_camera == null) throw new ArgumentNullException(nameof(_camera));
 
-            
-            _fireAction.performed += HandleFirePress;
-            _reloadAction.performed += HandleReloadPress;
-
+            SubscribeToPlayerActions();
             _magazine.ForceReload();
         }
 
         private void OnDestroy()
         {
-            _fireAction.performed -= HandleFirePress;
-            _reloadAction.performed -= HandleReloadPress;
+            UnSubscribeToPlayActions();
 
             _cancellationTokenSource.Cancel();
             _cancellationTokenSource.Dispose();
+        }
+
+        private void OnEnable()
+        {
+            SubscribeToPlayerActions();
+        }
+
+        private void OnDisable()
+        {
+            UnSubscribeToPlayActions();
         }
 
         #endregion
@@ -188,6 +194,19 @@ namespace ModularWeapons.Weapon
             {
                 throw new OperationCanceledException("Fire was cancelled because the operation was cancelled!");
             }
+        }
+
+        private void UnSubscribeToPlayActions()
+        {
+            _fireAction.performed -= HandleFirePress;
+            _reloadAction.performed -= HandleReloadPress;
+        }
+
+        private void SubscribeToPlayerActions()
+        {
+            if(_fireAction == null || _reloadAction == null) return;
+            _fireAction.performed += HandleFirePress;
+            _reloadAction.performed += HandleReloadPress;
         }
 
         #endregion
