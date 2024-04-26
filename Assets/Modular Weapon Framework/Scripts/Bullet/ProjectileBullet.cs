@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using ModularWeapons.HealthSystem;
 using UnityEngine;
 
 namespace ModularWeapons.Bullet
@@ -21,6 +22,13 @@ namespace ModularWeapons.Bullet
             bullet.gameObject.SetActive(true);
             bullet.Rigidbody.AddForce(new Vector3(forward.x + spread.x, forward.y + spread.y, forward.z) * _speed, ForceMode.Impulse);
             Destroy(bullet.gameObject, _lifeTimeSeconds);
+        }
+
+        private void OnTriggerEnter(Collider other) {
+            if(other.TryGetComponent<Health>(out var health))
+            {
+                health.Hit(Damage);
+            }
         }
     }
 }
