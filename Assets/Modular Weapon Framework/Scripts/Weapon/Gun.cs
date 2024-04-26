@@ -94,7 +94,7 @@ namespace ModularWeapons.Weapon
             if (_spread == null) throw new ArgumentNullException(nameof(_spread),
                                                                 "Did you forget to assign bullet spread?");
 
-            if(_camera == null) throw new ArgumentNullException(nameof(_camera));
+            if (_camera == null) throw new ArgumentNullException(nameof(_camera));
 
             _bullet.AssignDamage(_damage);
 
@@ -126,9 +126,9 @@ namespace ModularWeapons.Weapon
 
         public async void Fire(CancellationToken token)
         {
-            if(!_canFire) return;
+            if (!_canFire) return;
 
-            if(_fireDelaySeconds > 0f)
+            if (_fireDelaySeconds > 0f)
             {
                 await UniTask.WaitForSeconds(_fireDelaySeconds);
             }
@@ -146,9 +146,12 @@ namespace ModularWeapons.Weapon
 
                 _firingAudio?.PlayRandom();
 
-                Vector2 spread = _spread.GetSpread();
+                for (var i = 0; i < _pellets; i++)
+                {
+                    Vector2 spread = _spread.GetSpread();
+                    _bullet.Fire(_muzzleTransform.position, _muzzleTransform.forward, spread);
+                }
 
-                _bullet.Fire(_muzzleTransform.position, _muzzleTransform.forward, spread);
                 ApplyRecoil();
                 await UniTask.WaitForSeconds(DelayBetweenShotsSeconds, cancellationToken: token);
 
@@ -206,7 +209,7 @@ namespace ModularWeapons.Weapon
 
         private void SubscribeToPlayerActions()
         {
-            if(_fireAction == null || _reloadAction == null) return;
+            if (_fireAction == null || _reloadAction == null) return;
             _fireAction.performed += HandleFirePress;
             _reloadAction.performed += HandleReloadPress;
         }
