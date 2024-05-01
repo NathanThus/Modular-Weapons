@@ -1,4 +1,5 @@
 using ModularWeapons.HealthSystem;
+using UnityEditor;
 using UnityEngine;
 
 namespace ModularWeapons.Bullet
@@ -24,5 +25,15 @@ namespace ModularWeapons.Bullet
                 }
             }
         }
+
+        #if UNITY_EDITOR
+
+         private void OnDrawGizmos()
+        {
+            Handles.color = Color.green;
+            Handles.DrawLine(transform.position, transform.position + transform.forward * _range, 1f);    
+        }
+
+        #endif
     }
 }
