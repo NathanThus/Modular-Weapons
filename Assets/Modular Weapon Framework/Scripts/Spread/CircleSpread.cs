@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 namespace ModularWeapons.Spread
@@ -11,5 +12,15 @@ namespace ModularWeapons.Spread
             float y = Mathf.Sqrt(Mathf.Pow(_radius, 2) - Mathf.Pow(x, 2)) - Mathf.Pow(0, 2) + Mathf.Pow(0, 2) - Random.Range(-_radius, _radius);
             return new Vector2(x,y);
         }
+
+        #if UNITY_EDITOR
+
+        private void OnDrawGizmos()
+        {
+            Handles.color = Color.red;
+            Handles.DrawWireDisc(transform.position + transform.forward, transform.forward, _radius);
+        }
+
+        #endif
     }
 }

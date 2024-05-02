@@ -6497,7 +6497,7 @@ MonoBehaviour:
   _muzzleTransform: {fileID: 1249175765}
   _bullet: {fileID: 1028318472}
   _playerInput: {fileID: 946345370}
-  _recoilImpulse: {fileID: 0}
+  _recoilImpulse: {fileID: 1028318478}
 --- !u!65 &1028318475
 BoxCollider:
   m_ObjectHideFlags: 0
