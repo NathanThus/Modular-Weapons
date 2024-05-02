@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using Cinemachine;
 using Cysharp.Threading.Tasks;
 using ModularWeapons.Audio;
 using ModularWeapons.Bullet;
@@ -70,7 +71,7 @@ namespace ModularWeapons.Weapon
         [SerializeField] private Transform _muzzleTransform;
         [SerializeField] private BulletTemplate _bullet;
         [SerializeField] private PlayerInput _playerInput;
-        [SerializeField] private Transform _camera;
+        [SerializeField] private CinemachineImpulseSource _recoilImpulse;
 
         #endregion
         #region Fields
@@ -93,15 +94,17 @@ namespace ModularWeapons.Weapon
         private void Start()
         {
             _fireAction = _playerInput.actions.FindAction("Fire");
-            if (_fireAction == null) throw new ArgumentNullException(nameof(_fireAction));
+            if (_fireAction == null) throw new ArgumentNullException(nameof(_fireAction),
+                                                                     "There is no action named \"Fire\" available!");
 
             _reloadAction = _playerInput.actions.FindAction("Reload");
-            if (_reloadAction == null) throw new ArgumentNullException(nameof(_reloadAction));
+            if (_reloadAction == null) throw new ArgumentNullException(nameof(_reloadAction),
+                                                                    "There is no action named \"Reload\" available!");
 
             if (_spread == null) throw new ArgumentNullException(nameof(_spread),
                                                                 "Did you forget to assign bullet spread?");
 
-            if (_camera == null) throw new ArgumentNullException(nameof(_camera));
+            if (_recoilImpulse == null) throw new ArgumentNullException(nameof(_recoilImpulse));
 
             _bullet.AssignDamage(_damage);
 
@@ -184,7 +187,8 @@ namespace ModularWeapons.Weapon
             Vector3 recoil = new(Random.Range(_recoil.HorizontalRecoil.x, _recoil.HorizontalRecoil.y),
                                  Random.Range(_recoil.VerticalRecoil.x, _recoil.VerticalRecoil.y),
                                  0);
-            _camera.rotation.SetLookRotation(recoil);
+            _recoilImpulse.m_DefaultVelocity = recoil;
+            _recoilImpulse.GenerateImpulse();
         }
 
         private void HandleFirePress(InputAction.CallbackContext _)
