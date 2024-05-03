@@ -5,3 +5,5 @@
 Cinemachine - Part of Unity Plugins
 
 New Input System - Part of Unity Plugins
+
+TextMesh Pro - Part of Unity Plugins
