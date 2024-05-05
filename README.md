@@ -1,20 +1,11 @@
-# Design Challenge
+# Modular Weapons
 
-Design and create a unity package that enables game developers to prototype and implement a variety of firearms and guns into their games, without having to create their own weapons from scratch.
+## Importing
 
-## Context
+Please make sure you have the [Dependencies](https://github.com/NathanThus/Modular-Weapons/blob/develop/DEPENDENCIES.md) installed, before attempting to load the framework. This system comes with [UniTask](https://github.com/Cysharp/UniTask) and [TextMeshPro](https://docs.unity3d.com/Manual/com.unity.textmeshpro.html) integrated, though feel free to disable them if they are already in your project.
 
-As of late, I've gotten into editor scripting. This is due to the fact I've felt the effects of **Developer Experience** not being a secondary, or even tertiary thought when developing a system for a game. This leads to situations where setting up prefabs, systems or gameplay components can be a giant pain.
+## Use
+Add the `Gun` Component to any object that will act as the firearm. A seperate `Muzzle` Object will be where the bullets originate from.
+Once `Gun` has been added, add a `Bullet` and `Spread` Component. These will determine the properties of the actual `Bullet` and `Bullet Spread`.
 
-So with my new skills, I aim to help my fellow developers by creating a framework for guns within videogames.
-
-## Deliverable
-
-A unity package, containing:
-
-- Weapon Framework
-  - Supporting Hitcast & Projectile
-  - Incredibly Customisable
-  - Basic Health System
-- A Demo Scene
-- Relevant Documentation
+Add the `Health` component to any enemies, and see the [README](https://github.com/NathanThus/Modular-Weapons/tree/develop/Assets/Modular%20Weapon%20Framework/Scripts/Health) for additional information.
