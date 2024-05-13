@@ -23,11 +23,11 @@ namespace ModularWeapons.Spread
             Handles.color = Color.red;
             Vector3[] points =
             {
-                transform.position + transform.forward + new Vector3(-_horizontalSpread,-_verticalSpread),
-                transform.position + transform.forward + new Vector3(-_horizontalSpread,_verticalSpread),
-                transform.position + transform.forward + new Vector3(_horizontalSpread,_verticalSpread),
-                transform.position + transform.forward + new Vector3(_horizontalSpread,-_verticalSpread),
-                transform.position + transform.forward + new Vector3(-_horizontalSpread,-_verticalSpread)
+                transform.position + transform.forward + transform.right * -_horizontalSpread + transform.up * -_verticalSpread,
+                transform.position + transform.forward + transform.right * -_horizontalSpread + transform.up * _verticalSpread,
+                transform.position + transform.forward + transform.right * _horizontalSpread + transform.up * _verticalSpread,
+                transform.position + transform.forward + transform.right * _horizontalSpread + transform.up * -_verticalSpread,
+                transform.position + transform.forward + transform.right * -_horizontalSpread + transform.up * -_verticalSpread
             };
             Handles.DrawPolyLine(points);
         }

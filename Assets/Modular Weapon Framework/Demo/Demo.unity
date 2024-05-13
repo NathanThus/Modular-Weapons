@@ -311,8 +311,8 @@ MonoBehaviour:
     _loadSingleBullet: 0
   _spread: {fileID: 261255717}
   _recoil:
-    _horizontalRecoil: {x: -1, y: 1}
-    _verticalRecoil: {x: -1, y: 1}
+    _horizontalRecoil: {x: -0.05, y: 0.05}
+    _verticalRecoil: {x: -0.2, y: 0.2}
   _muzzleFlash: {fileID: 737017128}
   _firingAudio:
     _source: {fileID: 0}
@@ -6483,8 +6483,8 @@ MonoBehaviour:
     _loadSingleBullet: 0
   _spread: {fileID: 1028318473}
   _recoil:
-    _horizontalRecoil: {x: -1, y: 1}
-    _verticalRecoil: {x: -1, y: 1}
+    _horizontalRecoil: {x: -0.05, y: 0.05}
+    _verticalRecoil: {x: -0.2, y: 0.2}
   _muzzleFlash: {fileID: 1060859192}
   _firingAudio:
     _source: {fileID: 0}
