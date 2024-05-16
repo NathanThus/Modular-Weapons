@@ -16,7 +16,7 @@ namespace ModularWeapons.HealthSystem
         #region Serialized Fields
 
         [Header("Health Bar Properties")]
-        [SerializeField] private float _maxHealth;
+        [SerializeField] private float _maxHealth = 100f;
         [SerializeField] private float _currentHealth;
 
         #endregion
@@ -28,15 +28,24 @@ namespace ModularWeapons.HealthSystem
 
         #endregion
 
+        #region Start
+
+        private void Start()
+        {
+            _currentHealth = _maxHealth;
+        }
+
+        #endregion
+
         #region Public
 
         public virtual void Hit(float damage)
         {
-            if(damage < 0) throw new ArgumentOutOfRangeException(nameof(damage));
+            if (damage < 0) throw new ArgumentOutOfRangeException(nameof(damage));
 
             _currentHealth -= damage;
 
-            if(_currentHealth <= 0)
+            if (_currentHealth <= 0)
             {
                 OnDeath?.Invoke();
                 return;
@@ -47,9 +56,9 @@ namespace ModularWeapons.HealthSystem
 
         public virtual void Heal(float hitpoints)
         {
-            if(hitpoints < 0) throw new ArgumentOutOfRangeException(nameof(hitpoints));
+            if (hitpoints < 0) throw new ArgumentOutOfRangeException(nameof(hitpoints));
 
-            if(_currentHealth + hitpoints > MaxHealth)
+            if (_currentHealth + hitpoints > MaxHealth)
             {
                 _currentHealth = MaxHealth;
             }
