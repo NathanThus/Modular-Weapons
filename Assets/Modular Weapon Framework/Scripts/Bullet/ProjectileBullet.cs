@@ -24,10 +24,12 @@ namespace ModularWeapons.Bullet
             Destroy(bullet.gameObject, _lifeTimeSeconds);
         }
 
-        private void OnTriggerEnter(Collider other) {
-            if(other.TryGetComponent<Health>(out var health))
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.TryGetComponent<Health>(out var health))
             {
                 health.Hit(Damage);
+                Destroy(gameObject);
             }
         }
     }

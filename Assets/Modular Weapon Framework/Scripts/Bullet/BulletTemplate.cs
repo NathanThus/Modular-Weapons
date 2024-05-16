@@ -8,7 +8,7 @@ namespace ModularWeapons.Bullet
     {
         [SerializeField] private ParticleSystem _tracer;
 
-        private float _damage;
+        [SerializeField] private float _damage;
 
         protected float Damage => _damage;
 
