@@ -35,6 +35,13 @@ namespace ModularWeapons.HealthSystem
             _currentHealth = _maxHealth;
         }
 
+        private void OnDestroy()
+        {
+            OnDamage = null;
+            OnDeath = null;
+            OnHeal = null;
+        }
+
         #endregion
 
         #region Public
@@ -48,6 +55,7 @@ namespace ModularWeapons.HealthSystem
             if (_currentHealth <= 0)
             {
                 OnDeath?.Invoke();
+                Destroy(gameObject, 0.2f);
                 return;
             }
 
